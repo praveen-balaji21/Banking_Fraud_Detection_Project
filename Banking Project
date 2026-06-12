@@ -1,0 +1,460 @@
+#--DATABASE CREATION--
+
+CREATE DATABASE Proj;
+USE Proj;
+
+
+DROP TABLE Customers;
+DROP TABLE Accounts;
+DROP TABLE Transactions;
+DROP TABLE Fraud_alert;
+
+#-----TABLE CREATION-------------------
+
+CREATE TABLE Customers (
+            cust_id INT PRIMARY KEY,
+            cust_name VARCHAR(50),
+            cust_age INT,
+            cust_city VARCHAR(50),
+            cust_account_type VARCHAR(50),
+            cust_join_date DATE
+);
+
+CREATE TABLE Accounts ( 
+            account_id INT PRIMARY KEY,
+            cust_id INT ,
+            account_balance DECIMAL,
+            account_status VARCHAR(20),
+            FOREIGN KEY (cust_id)
+            REFERENCES Customers(cust_id)
+            
+	);
+    
+   
+
+CREATE TABLE Transactions (
+          Transaction_id INT PRIMARY KEY,
+          account_id INT ,
+          Transaction_type VARCHAR(20),
+          Transaction_date DATE,
+          Transaction_amount DECIMAL,
+          Transaction_Location VARCHAR(20),
+          FOREIGN KEY (account_id)
+          REFERENCES Accounts(account_id)
+          
+);
+
+
+
+CREATE TABLE Fraud_Alert (
+              alert_id INT ,
+              Transaction_id INT ,
+              Fraud_Reason VARCHAR(50),
+              alert_date DATE,
+              FOREIGN KEY (Transaction_id)
+              REFERENCES Transactions(Transaction_id)
+              
+);
+
+
+INSERT INTO CUSTOMERS VALUES
+(1,'Praveen Balaji',23,'Chennai','Savings','2024-01-15'),
+(2,'Rahul Kumar',30,'Bangalore','Current','2023-05-20'),
+(3,'Anitha S',27,'Hyderabad','Savings','2024-03-10'),
+(4,'Vijay R',35,'Coimbatore','Current','2022-11-18'),
+(5,'Sneha P',29,'Chennai','Savings','2024-06-25'),
+(6,'Arun K',31,'Madurai','Current','2023-08-12'),
+(7,'Divya M',26,'Salem','Savings','2024-02-05'),
+(8,'Karthik N',28,'Trichy','Savings','2023-09-14'),
+(9,'Priya R',32,'Bangalore','Current','2022-12-21'),
+(10,'Suresh V',40,'Hyderabad','Savings','2021-07-30'),
+(11,'Deepika L',24,'Chennai','Savings','2024-04-11'),
+(12,'Naveen T',33,'Coimbatore','Current','2023-01-17'),
+(13,'Lavanya S',27,'Madurai','Savings','2024-05-19'),
+(14,'Hari Prasad',36,'Bangalore','Current','2022-06-23'),
+(15,'Meena K',25,'Salem','Savings','2024-01-28'),
+(16,'Ramesh B',38,'Trichy','Current','2021-10-09'),
+(17,'Keerthana R',29,'Chennai','Savings','2023-11-15'),
+(18,'Gokul M',34,'Hyderabad','Current','2022-03-12'),
+(19,'Nisha P',26,'Coimbatore','Savings','2024-02-22'),
+(20,'Ajith K',37,'Madurai','Current','2021-12-18'),
+(21,'Saranya V',28,'Bangalore','Savings','2023-07-08'),
+(22,'Manoj R',35,'Salem','Current','2022-09-26'),
+(23,'Pooja S',24,'Chennai','Savings','2024-03-14'),
+(24,'Kiran Kumar',39,'Hyderabad','Current','2021-05-05'),
+(25,'Aishwarya N',30,'Trichy','Savings','2023-04-29'),
+(26,'Bharath M',32,'Coimbatore','Current','2022-08-16'),
+(27,'Swathi R',27,'Madurai','Savings','2024-05-03'),
+(28,'Vignesh P',41,'Bangalore','Current','2020-11-20'),
+(29,'Harini K',25,'Chennai','Savings','2024-06-01'),
+(30,'Dinesh S',36,'Salem','Current','2021-09-13');
+
+SELECT * FROM Customers;
+
+
+INSERT INTO Accounts VALUES
+(1001,1,75000.00,'Active'),
+(1002,2,120000.00,'Active'),
+(1003,3,45000.00,'Active'),
+(1004,4,98000.00,'Active'),
+(1005,5,55000.00,'Active'),
+(1006,6,135000.00,'Active'),
+(1007,7,62000.00,'Active'),
+(1008,8,48000.00,'InActive'),
+(1009,9,89000.00,'Active'),
+(1010,10,150000.00,'Active'),
+(1011,11,35000.00,'Active'),
+(1012,12,112000.00,'Active'),
+(1013,13,58000.00,'Active'),
+(1014,14,175000.00,'Active'),
+(1015,15,42000.00,'Active'),
+(1016,16,92000.00,'InActive'),
+(1017,17,68000.00,'Active'),
+(1018,18,143000.00,'InActive'),
+(1019,19,51000.00,'Active'),
+(1020,20,99000.00,'Active'),
+(1021,21,47000.00,'Active'),
+(1022,22,108000.00,'InActive'),
+(1023,23,39000.00,'InActive'),
+(1024,24,165000.00,'Active'),
+(1025,25,73000.00,'InActive'),
+(1026,26,84000.00,'Active'),
+(1027,27,61000.00,'Active'),
+(1028,28,210000.00,'InActive'),
+(1029,29,53000.00,'Active'),
+(1030,30,97000.00,'Active');
+
+SELECT * FROM Accounts;
+
+
+INSERT INTO Transactions VALUES
+(1,1001,'Deposit','2025-01-05',15000,'Chennai'),
+(2,1002,'Withdrawal','2025-01-10',5000,'Chennai'),
+(3,1003,'Deposit','2025-01-06',25000,'Bangalore'),
+(4,1004,'Transfer','2025-01-12',75000,'Mumbai'),
+(5,1004,'Withdrawal','2025-01-08',3000,'Hyderabad'),
+(6,1006,'Deposit','2025-01-15',12000,'Hyderabad'),
+(7,1007,'Transfer','2025-01-09',65000,'Delhi'),
+(8,1008,'Withdrawal','2025-01-16',8000,'Coimbatore'),
+(9,1009,'Deposit','2025-01-10',18000,'Chennai'),
+(10,1010,'Transfer','2025-01-20',55000,'Bangalore'),
+
+(11,1011,'Deposit','2025-02-01',22000,'Madurai'),
+(12,1012,'Withdrawal','2025-02-05',6000,'Madurai'),
+(13,1013,'Transfer','2025-02-03',72000,'Salem'),
+(14,1014,'Deposit','2025-02-10',15000,'Salem'),
+(15,1015,'Withdrawal','2025-02-07',4000,'Trichy'),
+(16,1016,'Transfer','2025-02-14',58000,'Chennai'),
+(17,1017,'Deposit','2025-02-08',20000,'Bangalore'),
+(18,1018,'Withdrawal','2025-02-18',7000,'Bangalore'),
+(19,1019,'Transfer','2025-02-09',95000,'Mumbai'),
+(20,1020,'Deposit','2025-02-20',30000,'Hyderabad'),
+
+(21,1021,'Withdrawal','2025-03-01',2500,'Chennai'),
+(22,1022,'Deposit','2025-03-06',10000,'Chennai'),
+(23,1023,'Transfer','2025-03-03',81000,'Coimbatore'),
+(24,1024,'Deposit','2025-03-11',18000,'Coimbatore'),
+(25,1025,'Withdrawal','2025-03-04',5000,'Madurai'),
+(26,1026,'Transfer','2025-03-15',62000,'Delhi'),
+(27,1027,'Deposit','2025-03-05',25000,'Bangalore'),
+(28,1028,'Transfer','2025-03-18',110000,'Mumbai'),
+(29,1029,'Withdrawal','2025-03-08',3500,'Salem'),
+(30,1030,'Deposit','2025-03-22',14000,'Salem');
+
+SELECT * FROM Transactions;
+
+
+INSERT INTO Fraud_Alert VALUES
+(1,1,'Normal','2025-01-12'),
+(2,2,'Normal','2025-01-09'),
+(3,3,'Normal','2025-01-20'),
+(4,4,'High Value','2025-02-03'),
+(5,5,'Normal','2025-02-14'),
+(6,6,'Normal','2025-02-09'),
+(7,7,'High Value','2025-03-03'),
+(8,8,'Normal','2025-03-15'),
+(9,9,'Normal','2025-03-18'),
+(10,10,'High Value','2025-04-02'),
+(11,11,'Normal','2025-04-15'),
+(12,12,'Normal','2025-04-20'),
+(13,13,'High Value','2025-04-08'),
+(14,14,'Normal','2025-05-11'),
+(15,15,'Normal','2025-05-14'),
+(16,16,'High Value','2025-05-07'),
+(17,17,'High Value','2025-05-21'),
+(18,18,'Unusual Loc','2025-01-12'),
+(19,19,'Amount Spike','2025-01-09'),
+(20,20,'Rapid Txn','2025-01-20'),
+(21,21,'Unusual Loc','2025-02-03'),
+(22,22,'Normal','2025-02-14'),
+(23,23,'Rapid Txn','2025-02-09'),
+(24,24,'Unusual Loc','2025-03-03'),
+(25,25,'Normal','2025-03-18'),
+(26,26,'Rapid Txn','2025-04-02'),
+(27,27,'Amount Spike','2025-04-20'),
+(28,28,'Unusual Loc','2025-04-08'),
+(29,29,'Suspicious','2025-05-07'),
+(30,30,'Rapid Txn','2025-05-21');
+
+
+
+SELECT * FROM Customers;
+SELECT * FROM Accounts;
+SELECT * FROM Transactions;
+SELECT * FROM Fraud_alert;
+
+
+         
+#----------Total No.of Customers----------------------------
+
+SELECT COUNT(*) AS Total_Customers
+FROM Customers;
+
+#---------------Active Accounts----------------------------------------
+
+SELECT COUNT(*) AS Active_Accounts
+FROM Accounts
+WHERE account_status = "Active";
+
+
+SELECT COUNT(*) AS Inactive_accounts
+FROM Accounts
+WHERE account_status = "Inactive";
+
+#----Find out the Customers account_status whose are Inactive and their account_type is Savings
+
+SELECT c.cust_name,c.cust_age,c.cust_city,c.cust_account_type,a.account_balance,a.account_status
+FROM Customers c 
+JOIN Accounts a 
+ON c.cust_id = a.cust_id
+WHERE Account_status = "InActive" and cust_account_type = "Savings";
+
+
+
+#--------------Total Transactions Amount----------------------------------------------
+
+SELECT sum(Transaction_amount) as Total_Transactions_Amount
+FROM Transactions;
+
+SELECT max(Transaction_amount) as MAX_Transactions_Amount
+FROM Transactions;
+
+SELECT min(Transaction_amount) as MIN_Transactions_Amount
+FROM Transactions;
+
+#----------Top 5 Transactions -------------
+
+SELECT * FROM Transactions
+ORDER BY Transaction_Amount DESC
+LIMIT 5;
+
+SELECT Cust_name
+FROM Customers;
+
+
+SELECT Fraud_Reason
+	FROM Fraud_alert; 
+
+
+CREATE TABLE  BANKING_PROJ AS
+       SELECT
+           c.cust_id,
+           c.cust_name,
+           c.cust_age,
+           c.cust_city,
+           c.cust_account_type,
+           c.cust_join_date,
+           a.account_id,
+           a.account_balance,
+           a.account_status,
+           t.transaction_id,
+           t.transaction_type,
+           t.transaction_date,
+           t.transaction_amount,
+           t.transaction_location,
+           f.alert_id,
+           f.fraud_reason,
+           f.alert_date
+	   FROM Customers c
+       JOIN Accounts a
+       ON c.cust_id = a.cust_id
+       JOIN Transactions t
+       ON a.account_id = t.account_id
+       JOIN Fraud_alert f
+       ON t.Transaction_id = f.Transaction_id;
+       
+       SELECT * FROM Banking_Proj; 
+       
+#-----------Find the Top 5 Customers Account balance----------------------------------------------------
+
+SELECT c.cust_id,c.cust_name,a.account_balance
+FROM Customers c 
+JOIN Accounts a 
+ON  c.cust_id = a.cust_id
+ORDER BY account_balance DESC
+LIMIT 5;
+
+#-------------Using Window Functions to Find the Top 5 Customers Account balance-----------------------------
+      
+ WITH CustomerRank AS (
+    SELECT *,
+           ROW_NUMBER() OVER (ORDER BY Account_Balance DESC) AS rn
+    FROM Accounts
+)
+SELECT *
+FROM CustomerRank
+WHERE rn <= 5;
+ 
+ #-------------using CTEs-----------------------
+ 
+ WITH Topcustomers AS  (
+        SELECT * 
+        FROM Accounts
+        ORDER BY Account_balance DESC
+        LIMIT 5
+     )
+  SELECT * 
+  FROM Topcustomers;
+  
+ 
+ 
+ 
+#----------------Customer with Top 5 Transactions-------------------------------------------      
+			
+SELECT t.Transaction_id,c.cust_name,t.Transaction_amount
+FROM Customers c 
+JOIN Accounts a 
+ON c.cust_id = a.cust_id
+JOIN Transactions t
+ON a.account_id = t.account_id
+ORDER BY Transaction_amount DESC
+LIMIT 5; 
+
+
+#------------Find out the Fraud Transactions and their Name -------------------------------------------------
+
+
+SELECT c.cust_name,t.transaction_amount,f.fraud_reason
+FROM Customers c 
+JOIN Accounts a 
+ON c.cust_id = a.cust_id 
+JOIN Transactions t
+ON a.account_id = t.account_id
+JOIN Fraud_alert f 
+ON t.Transaction_id = f.Transaction_id
+WHERE Fraud_reason <> "Normal";
+
+#--------------find out the normal transactions customers----------
+
+SELECT c.cust_name,t.transaction_amount,f.fraud_reason
+FROM Customers c 
+JOIN Accounts a 
+ON c.cust_id = a.cust_id 
+JOIN Transactions t
+ON a.account_id = t.account_id
+JOIN Fraud_alert f 
+ON t.Transaction_id = f.Transaction_id
+WHERE Fraud_reason = "Normal";
+
+
+
+SELECT COUNT(*) Fraud_reason
+FROM Fraud_alert
+WHERE Fraud_reason = "Normal";
+
+
+
+#-------------Customers with No Fraud History-----------
+
+
+SELECT c.cust_id,
+       c.cust_name,
+       f.fraud_reason,
+       CASE
+           WHEN f.fraud_reason = "Normal" THEN "None"
+           ELSE f.fraud_reason
+           END AS fraud_reason
+FROM Customers c
+JOIN Accounts a
+ON c.cust_id = a.cust_id
+JOIN Transactions t
+ON a.account_id = t.account_id
+LEFT JOIN Fraud_Alert f
+ON t.transaction_id = f.transaction_id
+WHERE fraud_reason = "Normal"; 
+
+
+
+#--------------------Average Transaction Amount by City-----------------
+
+
+
+SELECT c.cust_city,
+       ROUND(AVG(t.transaction_amount)) Avg_Amount
+FROM Customers c
+JOIN Accounts a
+ON c.cust_id = a.cust_id
+JOIN Transactions t
+ON a.account_id = t.account_id
+GROUP BY c.cust_city;
+
+
+#--------------------Customers Making High-Value Transactions------------------
+
+
+SELECT c.cust_name,
+       t.transaction_amount
+FROM Customers c
+JOIN Accounts a
+ON c.cust_id = a.cust_id
+JOIN Transactions t
+ON a.account_id = t.account_id
+WHERE t.transaction_amount > 50000
+ORDER BY Transaction_amount DESC;
+
+
+#------Highest Fraud-Prone Location----------------
+
+
+SELECT t.transaction_location,
+       COUNT(*) AS Fraud_Count
+FROM Transactions t
+JOIN Fraud_Alert f
+ON t.transaction_id = f.transaction_id
+WHERE f.fraud_reason <> 'Normal'
+GROUP BY t.transaction_location
+ORDER BY Fraud_Count DESC;
+
+
+
+#--------Find the Customer Risk Score---------------------
+
+
+SELECT c.cust_name,
+       COUNT(f.transaction_id) AS Fraud_Count,
+       CASE
+           WHEN COUNT(f.transaction_id) >= 2 THEN 'High Risk'
+           WHEN COUNT(f.transaction_id) >= 1 THEN 'Medium Risk'
+           ELSE 'Low Risk'
+       END AS Risk_Level
+FROM Customers c
+JOIN Accounts a
+ON c.cust_id = a.cust_id
+JOIN Transactions t
+ON a.account_id = t.account_id
+LEFT JOIN Fraud_Alert f
+ON t.transaction_id = f.transaction_id
+AND f.fraud_reason <> 'Normal'
+GROUP BY c.cust_name;
+
+
+
+#-------Which Location Generates the Transaction_amount---------------
+
+
+SELECT
+    transaction_location,
+    SUM(transaction_amount) AS Total_transaction_amount
+FROM Transactions
+GROUP BY transaction_location
+ORDER BY Total_transaction_amount DESC;
